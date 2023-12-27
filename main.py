@@ -8,46 +8,13 @@ import sys
 import os
 
 
-########################################################################################################################################################################################################################
+def read_json(path):
+    with open(str(path)) as file:
+        content = json.load(file)
+    return content
 
-image_extensions = [
-    ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".ico",
-    ".jfif", ".webp", ".heif", ".bat", ".raw", ".indd", ".ai",
-    ".eps", ".svg"
-]
 
-video_extensions = [
-    ".mp4", ".mkv", ".flv", ".avi", ".wmv", ".mov", ".webm",
-    ".mpeg", ".mpg", ".m4v", ".3gp", ".3g2", ".ogv", ".vob",
-    ".qt", ".f4v", ".f4p", ".f4a", ".f4b", ".h264", ".h265",
-    ".rm", ".rmvb", ".asf", ".amv", ".m2v", ".svi", ".mxf"
-]
-
-audio_extensions = [
-    ".mp3", ".wav", ".ogg", ".flac", ".aac", ".wma", ".m4a",
-    ".alac", ".aiff", ".caf", ".ac3", ".amr", ".dts", ".ra",
-    ".gsm", ".mka", ".opus", ".tta", ".au", ".m4b", ".m4r",
-    ".mpc", ".voc", ".qcp"
-]
-
-compression_extensions = [".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz", ".lz", ".lzma", ".lzo", ".z", ".tgz", ".tbz", ".tar.gz",
-                          ".tar.bz2", ".tar.xz", ".s7z", ".ace", ".cab", ".arj", ".jar", ".apk", ".sitx", ".hqx", ".lha", ".lzh", ".alz", ".arc", ".isz", ]
-
-other_bad_extensions = [".exe"]
-
-default_ignore_list = [
-    "env",
-    ".DS_Store",
-    ".git",
-    ".env",
-    "node_modules",
-    "yarn.lock",
-    "package-lock.json"
-]
-
-phone_country_extension = "US"
-
-########################################################################################################################################################################################################################
+config = read_json(os.path.join(os.path.dirname(os.path.realpath(__file__)), "config.json"))
 
 
 def replace_multiple_spaces(text):
@@ -56,7 +23,7 @@ def replace_multiple_spaces(text):
 
 def find_phone_numbers(text):
     output = []
-    for match in phonenumbers.PhoneNumberMatcher(text, phone_country_extension):
+    for match in phonenumbers.PhoneNumberMatcher(text, config["phone_country_extension"]):
         content = str(match.number).split(" ")
         try:
             output.append({
@@ -124,15 +91,15 @@ def has_ext(s, extensions):
 
 
 def not_img_vid_aud(value):
-    if has_ext(value, image_extensions):
+    if has_ext(value, config["image_extensions"]):
         return False
-    if has_ext(value, video_extensions):
+    if has_ext(value, config["video_extensions"]):
         return False
-    if has_ext(value, audio_extensions):
+    if has_ext(value, config["audio_extensions"]):
         return False
-    if has_ext(value, compression_extensions):
+    if has_ext(value, config["compression_extensions"]):
         return False
-    if has_ext(value, other_bad_extensions):
+    if has_ext(value, config["other_bad_extensions"]):
         return False
     return True
 
@@ -148,6 +115,8 @@ def main(base_path, ignore_list):
                 continue
 
             file_path = os.path.join(root, file)
+
+            # print(file_path)
 
             file_content = []
             if not_img_vid_aud(file_path):
@@ -197,7 +166,7 @@ if __name__ == "__main__":
     # define CLI settings
     parser = argparse.ArgumentParser(description="CLI tool to check if any personal information is in a directory")
     parser.add_argument("base_path", type=str, help="Base path for the operation")
-    parser.add_argument("--ignore", "--i", type=str, nargs='*', default=default_ignore_list, help="Optional: List of items to ignore")
+    parser.add_argument("--ignore", "--i", type=str, nargs='*', default=config["default_ignore_list"], help="Optional: List of items to ignore")
 
     args = parser.parse_args()
 
@@ -205,9 +174,11 @@ if __name__ == "__main__":
         print(f"The path '{args.base_path}' does not exist.")
         exit(1)
 
-    if args.ignore != default_ignore_list:
+    if args.ignore != config["default_ignore_list"]:
         ignores = replace_multiple_spaces(' '.join(args.ignore))
         args.ignore = ignores.split(',')
 
     main(args.base_path, args.ignore)
+
+    exit(0)
 

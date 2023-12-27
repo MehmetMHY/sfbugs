@@ -1,0 +1,36 @@
+{
+    "image_extensions": [
+        ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".ico",
+        ".jfif", ".webp", ".heif", ".bat", ".raw", ".indd", ".ai",
+        ".eps", ".svg"
+    ],
+    "audio_extensions": [
+        ".mp3", ".wav", ".ogg", ".flac", ".aac", ".wma", ".m4a",
+        ".alac", ".aiff", ".caf", ".ac3", ".amr", ".dts", ".ra",
+        ".gsm", ".mka", ".opus", ".tta", ".au", ".m4b", ".m4r",
+        ".mpc", ".voc", ".qcp"
+    ],
+    "video_extensions": [
+        ".mp4", ".mkv", ".flv", ".avi", ".wmv", ".mov", ".webm",
+        ".mpeg", ".mpg", ".m4v", ".3gp", ".3g2", ".ogv", ".vob",
+        ".qt", ".f4v", ".f4p", ".f4a", ".f4b", ".h264", ".h265",
+        ".rm", ".rmvb", ".asf", ".amv", ".m2v", ".svi", ".mxf"
+    ],
+    "compression_extensions": [
+        ".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz", ".lz", 
+        ".lzma", ".lzo", ".z", ".tgz", ".tbz", ".tar.gz", ".tar.bz2", 
+        ".tar.xz", ".s7z", ".ace", ".cab", ".arj", ".jar", ".apk", 
+        ".sitx", ".hqx", ".lha", ".lzh", ".alz", ".arc", ".isz"
+    ],
+    "other_bad_extensions": [".exe"],
+    "default_ignore_list": [
+        "env",
+        ".DS_Store",
+        ".git",
+        ".env",
+        "node_modules",
+        "yarn.lock",
+        "package-lock.json"
+    ],
+    "phone_country_extension":  "US"
+}

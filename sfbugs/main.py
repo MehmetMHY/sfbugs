@@ -228,6 +228,7 @@ def run(base_path, ignore_list):
             if x != len(all_entries) - 1:
                 print()
     else:
+        print()
         print("✅ zero case(s) found")
 
 

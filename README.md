@@ -14,6 +14,8 @@ CLI tool for listing files that contains sensitive information (phone numbers, e
     - Currently only scans for US phone numbers
 - Only scans text files (txt, py, css, html, js, md, etc) and PDFs
 - Does not scan image, video, and/or audio files
+- Currently, the default files/directories sfbugs ignores during a scan are: env, .DS_Store, .git, .env, node_modules, yarn.lock, & package-lock.json
+    - Handling ignored files/directories needs to be handled in a better manner
 
 ## Setup (With Pip)
 
@@ -69,4 +71,9 @@ CLI tool for listing files that contains sensitive information (phone numbers, e
 ## Checkout (Alternative)
 
 - https://github.com/redhuntlabs/Octopii
+
+## Credit
+
+- [OpenAI ChatGPT (GPT-4)](https://chat.openai.com/)
+- [Stack Overflow](https://stackoverflow.com/)
 

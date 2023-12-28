@@ -1,5 +1,9 @@
 # Scan Files Browser for Uncovering Guarded Sensitive-data (SFBUGS)
 
+<p align="center">
+  <img width="100" src="./assets/logo.png">
+</p>
+
 ## About
 
 CLI tool for listing files that contains sensitive information (phone numbers, emails, & addresses) in a given directory
@@ -37,3 +41,6 @@ CLI tool for listing files that contains sensitive information (phone numbers, e
     deactivate
     ```
 
+## Checkout
+
+- https://github.com/redhuntlabs/Octopii

@@ -4,9 +4,9 @@
 
 CLI tool for listing files that contains sensitive information (phone numbers, emails, & addresses) in a given directory
 
-## Setup
+## Setup (Not Though Pip)
 
-1. Make sure you are using a Unix-Based operating system and you have a "modern" Python 3 verion installed. Also make sure you have this project's repo cloned and cd-ed into.
+1. Make sure you are using a Unix-Based operating system and you have a "modern" Python 3 version installed. Also make sure you have this project's repo cloned and cd-ed into.
 
 2. Setup python environment:
 

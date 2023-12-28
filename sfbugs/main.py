@@ -8,6 +8,20 @@ import sys
 import os
 
 
+# https://stackoverflow.com/a/17303428
+class color:
+   PURPLE = '\033[95m'
+   CYAN = '\033[96m'
+   DARKCYAN = '\033[36m'
+   BLUE = '\033[94m'
+   GREEN = '\033[92m'
+   YELLOW = '\033[93m'
+   RED = '\033[91m'
+   BOLD = '\033[1m'
+   UNDERLINE = '\033[4m'
+   END = '\033[0m'
+
+
 config = {
     "image_extensions": [
         ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".ico",
@@ -140,6 +154,9 @@ def not_img_vid_aud(value):
 
 
 def run(base_path, ignore_list):
+    all_entries = []
+    all_paths = []
+
     for root, dirs, files in os.walk(base_path):
 
         # Ignore specified directories
@@ -151,7 +168,7 @@ def run(base_path, ignore_list):
 
             file_path = os.path.join(root, file)
 
-            # print(file_path)
+            all_paths.append(file_path)
 
             file_content = []
             if not_img_vid_aud(file_path):
@@ -163,7 +180,7 @@ def run(base_path, ignore_list):
                     file_content = read_file(file_path)
 
             entry = {
-                "file_path": file_path,
+                "file": file_path,
                 "numbers": [],
                 "emails": [],
                 "addresses": [],
@@ -184,17 +201,34 @@ def run(base_path, ignore_list):
                 if len(ha) > 0:
                     entry["addresses"] += [a for a in ha]
 
-            # remove duplicates
-            entry["numbers"] = list(set(entry["numbers"]))
-            entry["emails"] = list(set(entry["emails"]))
-            entry["addresses"] = list(set(entry["addresses"]))
-            
-            # print results, cleanly...
             if entry["used"]:
-                for i, (key, value) in enumerate(entry.items()):
-                    if key != "used" and value:
-                        print(f"{key}: {value}")
+                # remove duplicates
+                entry["numbers"] = list(set(entry["numbers"]))
+                entry["emails"] = list(set(entry["emails"]))
+                entry["addresses"] = list(set(entry["addresses"]))
+                
+                all_entries.append(entry)
+
+    # cleanly print file results
+    if len(all_paths) > 0:
+        print(f"{color.UNDERLINE}🗺️  PATHS CHECKED{color.END}\n")
+        for i in range(len(all_paths)):
+            print(all_paths[i])
+            if i != len(all_paths) - 1:
                 print()
+    else:
+        print("❓zero path(s) checked")
+    if len(all_entries) > 0:
+        print(f"\n{color.UNDERLINE}📝 OUTPUT/RESULTS{color.END}\n")
+        for x in range(len(all_entries)):
+            entry = all_entries[x]
+            for i, (key, value) in enumerate(entry.items()):
+                if key != "used" and value:
+                    print(f"{key}: {value}")
+            if x != len(all_entries) - 1:
+                print()
+    else:
+        print("✅ zero case(s) found")
 
 
 def main():

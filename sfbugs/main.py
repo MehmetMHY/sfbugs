@@ -8,13 +8,48 @@ import sys
 import os
 
 
+config = {
+    "image_extensions": [
+        ".jpg", ".jpeg", ".png", ".gif", ".bmp", ".tiff", ".ico",
+        ".jfif", ".webp", ".heif", ".bat", ".raw", ".indd", ".ai",
+        ".eps", ".svg"
+    ],
+    "audio_extensions": [
+        ".mp3", ".wav", ".ogg", ".flac", ".aac", ".wma", ".m4a",
+        ".alac", ".aiff", ".caf", ".ac3", ".amr", ".dts", ".ra",
+        ".gsm", ".mka", ".opus", ".tta", ".au", ".m4b", ".m4r",
+        ".mpc", ".voc", ".qcp"
+    ],
+    "video_extensions": [
+        ".mp4", ".mkv", ".flv", ".avi", ".wmv", ".mov", ".webm",
+        ".mpeg", ".mpg", ".m4v", ".3gp", ".3g2", ".ogv", ".vob",
+        ".qt", ".f4v", ".f4p", ".f4a", ".f4b", ".h264", ".h265",
+        ".rm", ".rmvb", ".asf", ".amv", ".m2v", ".svi", ".mxf"
+    ],
+    "compression_extensions": [
+        ".zip", ".rar", ".7z", ".tar", ".gz", ".bz2", ".xz", ".lz", 
+        ".lzma", ".lzo", ".z", ".tgz", ".tbz", ".tar.gz", ".tar.bz2", 
+        ".tar.xz", ".s7z", ".ace", ".cab", ".arj", ".jar", ".apk", 
+        ".sitx", ".hqx", ".lha", ".lzh", ".alz", ".arc", ".isz"
+    ],
+    "other_bad_extensions": [".exe"],
+    "default_ignore_list": [
+        "env",
+        ".DS_Store",
+        ".git",
+        ".env",
+        "node_modules",
+        "yarn.lock",
+        "package-lock.json"
+    ],
+    "phone_country_extension":  "US"
+}
+
+
 def read_json(path):
     with open(str(path)) as file:
         content = json.load(file)
     return content
-
-
-config = read_json(os.path.join(os.path.dirname(os.path.realpath(__file__)), "config.json"))
 
 
 def replace_multiple_spaces(text):
@@ -104,7 +139,7 @@ def not_img_vid_aud(value):
     return True
 
 
-def main(base_path, ignore_list):
+def run(base_path, ignore_list):
     for root, dirs, files in os.walk(base_path):
 
         # Ignore specified directories
@@ -162,7 +197,7 @@ def main(base_path, ignore_list):
                 print()
 
 
-if __name__ == "__main__":
+def main():
     # define CLI settings
     parser = argparse.ArgumentParser(description="CLI tool to check if any personal information is in a directory")
     parser.add_argument("base_path", type=str, help="Base path for the operation")
@@ -178,7 +213,11 @@ if __name__ == "__main__":
         ignores = replace_multiple_spaces(' '.join(args.ignore))
         args.ignore = ignores.split(',')
 
-    main(args.base_path, args.ignore)
+    run(args.base_path, args.ignore)
 
     exit(0)
+
+
+if __name__ == "__main__":
+    main()
 

@@ -8,6 +8,31 @@
 
 CLI tool for listing files that contains sensitive information (phone numbers, emails, & addresses) in a given directory
 
+## Limitations
+
+- Only checks for phone numbers, addresses, and phone numbers
+    - Currently only scans for US phone numbers
+- Only scans text files (txt, py, css, html, js, md, etc) and PDFs
+- Does not scan image, video, and/or audio files
+
+## Setup (With Pip)
+
+1. Install sfbugs:
+    
+    ```
+    pip3 install .
+    ```
+
+2. Run it:
+
+    ```
+    # format:
+    python3 main.py <dir_path> <ignore_list>
+
+    # example:
+    python3 main.py /root/ ".git,.env,package.json"
+    ```
+
 ## Setup (Not Though Pip)
 
 1. Make sure you are using a Unix-Based operating system and you have a "modern" Python 3 version installed. Also make sure you have this project's repo cloned and cd-ed into.
@@ -41,6 +66,7 @@ CLI tool for listing files that contains sensitive information (phone numbers, e
     deactivate
     ```
 
-## Checkout
+## Checkout (Alternative)
 
 - https://github.com/redhuntlabs/Octopii
+

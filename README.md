@@ -1,4 +1,4 @@
-# sfbugs
+# Scan Files Browser for Uncovering Guarded Sensitive-data (SFBUGS)
 
 ## About
 

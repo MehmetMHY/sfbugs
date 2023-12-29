@@ -1,7 +1,7 @@
 # Scan Files Browser for Uncovering Guarded Sensitive-data (SFBUGS)
 
 <p align="center">
-  <img width="100" src="./assets/logo.png">
+  <img width="150" src="./assets/logo.png">
 </p>
 
 ## About
